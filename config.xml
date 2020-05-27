@@ -1,0 +1,18 @@
+<langConfig>
+  <en> Relevance is all symbols to suitable ones ratio. Avery article typically got few text blocks, like title, description, main text etc.
+    <charRate min="0.97" enough="1.0"/> Min char rate is cause to drop current article if its current text block exist, but has less than min language relevance.
+    <newsInfo>                         Enough char rate is cause to take current article immidietely if its current text block got more then enough language relevance.
+      <relevance min="0.1" enough="0.2"/>
+      <keywords news="3.0" inform="1.8" daily="1.5" attack="1.2" Trump="1.0" murder="0.9" elect="0.9" legislat="0.6" tiding="0.6"/>Todo more Verbs
+    </newsInfo>
+  </en>
+  <ru>
+    <charRate min="0.86" enough="1.0"/>
+    <newsInfo> Here relevance is ratio of word counts. Suitable words has weights - news="3.0" goes as three suitable words.
+      <relevance min="0.1" enough="0.2"/>Min, enough relevances are same as char rates.
+      <keywords news="3.0" информа="1.8" новост="3" войн="1.5" военн="1.5" полити="1.5" убит="1.2" убийств="1.2" разыск="1.2" розыск="1.2" арест="1.2" Путин="1.0" власт="0.6"/>
+    </newsInfo>
+  </ru>
+</langConfig>
+<performance threadCount="12" lowMemory="true"/>
+<dbgTuning lowRelevancePath="../test" upToRelevance="0.999"/>Articles with relevance from min to upToRelevance copying (dbgTryDumpLowArticles) or write titles (dbgTryReportLowTitles)
