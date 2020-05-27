@@ -95,26 +95,26 @@ bool tg::CNewsMgr::DoWork(std::string path, ETask task)
     std::vector<std::vector<fs::path>> threadPathes;
     SplitPathes(mainPathes, threadPathes, GetThreadCount());
     CParser commonParser(task);
+// TODO: fix creating threads
+    // std::vector<std::thread> workers;
+    // workers.reserve(threadPathes.size());
+    // std::vector<CParser> parsers(threadPathes.size(), commonParser);
 
-    std::vector<std::thread> workers;
-    workers.reserve(threadPathes.size());
-    std::vector<CParser> parsers(threadPathes.size(), commonParser);
+    // std::vector<CParser>::iterator itParser = parsers.begin();
+    // for (const std::vector<fs::path>& job : threadPathes)
+    //     workers.emplace_back(&CParser::GatherArticles, itParser++, std::ref(job));
 
-    std::vector<CParser>::iterator itParser = parsers.begin();
-    for (const std::vector<fs::path>& job : threadPathes)
-        workers.emplace_back(&CParser::GatherArticles, itParser++, std::ref(job));
-
-    commonParser.GatherArticles(mainPathes);
-    for(size_t i = 0; i < threadPathes.size(); ++i)
-    {
-        if (workers[i].joinable())
-        {
-            workers[i].join();
-            commonParser.merge(&parsers[i]);
-        }
-        else
-            std::cout<<"Warn: can't join thread : "<<workers[i].get_id()<<std::endl;
-    }
+    // commonParser.GatherArticles(mainPathes);
+    // for(size_t i = 0; i < threadPathes.size(); ++i)
+    // {
+    //     if (workers[i].joinable())
+    //     {
+    //         workers[i].join();
+    //         commonParser.merge(&parsers[i]);
+    //     }
+    //     else
+    //         std::cout<<"Warn: can't join thread : "<<workers[i].get_id()<<std::endl;
+    // }
 
     std::string report;
     commonParser.GetReport(report);
